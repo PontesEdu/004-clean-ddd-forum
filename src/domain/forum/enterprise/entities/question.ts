@@ -1,8 +1,8 @@
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Slug } from './value-objects/slug'
-import { Entity } from '../../core/entities/entity'
-import { UniqueEntityId } from '../../core/entities/unique-entity-id'
-import { Optional } from '../../core/types/optional'
-import dayjs from './../../../node_modules/dayjs/esm/index'
+import { Entity } from '@/core/entities/entity'
+import { Optional } from '@/core/types/optional'
+import dayjs from 'dayjs'
 
 interface QuestionProps {
   title: string
