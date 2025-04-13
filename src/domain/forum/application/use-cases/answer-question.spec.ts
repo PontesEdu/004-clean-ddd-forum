@@ -1,21 +1,23 @@
+import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
 import { AnswerQuestionUseCase } from './answer-question'
-import { AnswersRepository } from '../repositories/answer-repository'
-import { Answer } from '../../enterprise/entities/answer'
 
-const fakeAnswerRepository: AnswersRepository = {
-  create: async (answer: Answer) => {
-    console.log(answer)
-  },
-}
+describe('Create Answer', () => {
+  let inMamoryAnswerRepository: InMamoryAnswerRepository
+  let sut: AnswerQuestionUseCase // USE CASE => sut
 
-test('create an answer', async () => {
-  const answerQuestion = new AnswerQuestionUseCase(fakeAnswerRepository)
-
-  const answer = await answerQuestion.execute({
-    questionId: '1',
-    instructorId: '2',
-    content: 'Nova resposta',
+  beforeEach(() => {
+    inMamoryAnswerRepository = new InMamoryAnswerRepository()
+    sut = new AnswerQuestionUseCase(inMamoryAnswerRepository)
   })
 
-  expect(answer.content).toEqual('Nova resposta')
+  test('Should be able to create Answer', async () => {
+    const { answer } = await sut.execute({
+      instructorId: 'Clovis',
+      questionId: 'Nova Questao',
+      content: 'conteudo da pergunta',
+    })
+
+    expect(answer.id).toBeTruthy()
+    expect(answer.content).toEqual('conteudo da pergunta')
+  })
 })
