@@ -7,7 +7,7 @@ export interface QuestionRepository {
 
   findBySlug(slug: string): Promise<Question | null>
 
-  save(question: Question): Promise<Question | null>
+  save(question: Question): Promise<void>
 
   delete(question: Question): Promise<void>
 }
