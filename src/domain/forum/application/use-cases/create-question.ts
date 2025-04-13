@@ -2,13 +2,13 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Question } from '../../enterprise/entities/question'
 import { QuestionRepository } from '../repositories/questions-repository'
 
-interface QuestionUseCaseRequest {
+interface CreateQuestionUsecaseRequest {
   authorId: string
   title: string
   content: string
 }
 
-interface QuestionUseCaseResponse {
+interface CreateQuestionUsecaseResponse {
   question: Question
 }
 
@@ -19,7 +19,7 @@ export class CreateQuestionUseCase {
     authorId,
     title,
     content,
-  }: QuestionUseCaseRequest): Promise<QuestionUseCaseResponse> {
+  }: CreateQuestionUsecaseRequest): Promise<CreateQuestionUsecaseResponse> {
     const question = Question.create({
       title,
       authorId: new UniqueEntityId(authorId),
