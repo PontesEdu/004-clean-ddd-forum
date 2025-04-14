@@ -1,27 +1,22 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Optional } from '@/core/types/optional'
 
-export interface AnswerProps {
+export interface CommentProps {
   content: string
-  answerId: UniqueEntityId
-  questionId: UniqueEntityId
   authorId: UniqueEntityId
   createAt: Date
   updateAt?: Date
 }
 
-export class Answer extends Entity<AnswerProps> {
+export abstract class Comment<
+  Props extends CommentProps,
+> extends Entity<Props> {
   get content() {
     return this.props.content
   }
 
   get authorId() {
     return this.props.authorId
-  }
-
-  get questionId() {
-    return this.props.questionId
   }
 
   get createAt() {
@@ -39,17 +34,5 @@ export class Answer extends Entity<AnswerProps> {
 
   private touch() {
     this.props.updateAt = new Date()
-  }
-
-  static create(props: Optional<AnswerProps, 'createAt'>, id?: UniqueEntityId) {
-    const answer = new Answer(
-      {
-        ...props,
-        createAt: props.createAt ?? new Date(),
-      },
-      id,
-    )
-
-    return answer
   }
 }
