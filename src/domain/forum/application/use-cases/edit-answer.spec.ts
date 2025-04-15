@@ -36,12 +36,13 @@ describe('Edit answer', () => {
     )
     inMamoryAnswerRepository.create(answer)
 
-    expect(() => {
-      return sut.execute({
-        answerId: 'answer-1',
-        authorId: 'author-2',
-        content: 'answer nova edit',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      answerId: 'answer-1',
+      authorId: 'author-2',
+      content: 'answer nova edit',
+    })
+
+    expect(result.value).toBeInstanceOf(Error)
+    expect(result.isLeft()).toBe(true)
   })
 })

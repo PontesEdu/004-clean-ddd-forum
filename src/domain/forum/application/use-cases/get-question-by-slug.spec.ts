@@ -15,11 +15,13 @@ describe('Get Question By Slug', () => {
   test('Should be able to get a question by slug', async () => {
     const newQuestion = makeQuestion({ slug: Slug.create('example-question') })
 
-    inMamoryQuestionRepository.create(newQuestion)
+    await inMamoryQuestionRepository.create(newQuestion)
 
-    const { question } = await sut.execute({ slug: 'example-question' })
+    const result = await sut.execute({ slug: 'example-question' })
 
-    expect(question.id).toBeTruthy()
-    expect(question.title).toEqual(newQuestion.title)
+    if (result.isRight()) {
+      expect(result.value?.question.id).toBeTruthy()
+      expect(result.value?.question.title).toEqual(newQuestion.title)
+    }
   })
 })

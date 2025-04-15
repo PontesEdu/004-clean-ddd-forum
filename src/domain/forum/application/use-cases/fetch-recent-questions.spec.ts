@@ -22,9 +22,9 @@ describe('Fetch Recent Questions', () => {
       makeQuestion({ createAt: new Date(2025, 0, 30) }),
     )
 
-    const { questions } = await sut.execute({ page: 1 })
+    const result = await sut.execute({ page: 1 })
 
-    expect(questions).toEqual([
+    expect(result.value?.questions).toEqual([
       expect.objectContaining({ createAt: new Date(2025, 0, 30) }),
       expect.objectContaining({ createAt: new Date(2023, 0, 10) }),
       expect.objectContaining({ createAt: new Date(2022, 2, 20) }),
@@ -38,9 +38,9 @@ describe('Fetch Recent Questions', () => {
 
     // .slice((page - 1) * 20, page * 20)
 
-    const { questions } = await sut.execute({ page: 2 })
+    const result = await sut.execute({ page: 2 })
 
     // ele vai pular os 20 primeiros items e mostrar so os 2 dos 22 items
-    expect(questions).toHaveLength(2)
+    expect(result.value?.questions).toHaveLength(2)
   })
 })

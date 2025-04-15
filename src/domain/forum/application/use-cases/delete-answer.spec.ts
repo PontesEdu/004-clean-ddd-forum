@@ -2,6 +2,7 @@ import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
 import { DeleteAnswerUseCase } from './delete-answer'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { makeAnswer } from 'test/factories/make-answer'
+import { NotAllowedError } from './errors/resourse-not-allowed-error'
 
 describe('Delete answer', () => {
   let inMamoryAnswerRepository: InMamoryAnswerRepository
@@ -33,11 +34,12 @@ describe('Delete answer', () => {
     )
     inMamoryAnswerRepository.create(newAnswer)
 
-    expect(() => {
-      return sut.execute({
-        answerId: 'answer-1',
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      answerId: 'answer-1',
+      authorId: 'author-2',
+    })
+
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

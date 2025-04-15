@@ -33,11 +33,12 @@ describe('Delete question', () => {
     )
     inMamoryQuestionRepository.create(newQuestion)
 
-    expect(() => {
-      return sut.execute({
-        questionId: 'question-1',
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      questionId: 'question-1',
+      authorId: 'author-2',
+    })
+
+    expect(result.value).toBeInstanceOf(Error)
+    expect(result.isLeft()).toBe(true)
   })
 })

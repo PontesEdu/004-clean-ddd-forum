@@ -11,12 +11,13 @@ describe('Create Question', () => {
   })
 
   test('Should be able to cerate question', async () => {
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       authorId: 'Eduardo',
       title: 'Nova Pergunta',
       content: 'conteudo da pergunta',
     })
 
-    expect(question.id).toBeTruthy()
+    expect(result.isLeft()).toBe(false)
+    expect(inMamoryQuestionRepository.items[0]).toEqual(result.value?.question)
   })
 })

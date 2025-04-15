@@ -23,9 +23,9 @@ describe('Fetch Recent Answers', () => {
       makeAnswer({ questionId: new UniqueEntityId('question-1') }),
     )
 
-    const { answers } = await sut.execute({ questionId: 'question-1', page: 1 })
+    const result = await sut.execute({ questionId: 'question-1', page: 1 })
 
-    expect(answers).toHaveLength(3)
+    expect(result.value?.answers).toHaveLength(3)
   })
 
   test('Should be able to Fetch Pagination recent answers', async () => {
@@ -37,9 +37,9 @@ describe('Fetch Recent Answers', () => {
 
     // .slice((page - 1) * 20, page * 20)
 
-    const { answers } = await sut.execute({ questionId: 'question-1', page: 2 })
+    const result = await sut.execute({ questionId: 'question-1', page: 2 })
 
     // ele vai pular os 20 primeiros items e mostrar so os 2 dos 22 items
-    expect(answers).toHaveLength(2)
+    expect(result.value?.answers).toHaveLength(2)
   })
 })

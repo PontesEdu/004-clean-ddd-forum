@@ -23,12 +23,12 @@ describe('Fetch Question Comments', () => {
       makeQuestionComment({ questionId: new UniqueEntityId('question-1') }),
     )
 
-    const { questionComments } = await sut.execute({
+    const result = await sut.execute({
       questionId: 'question-1',
       page: 1,
     })
 
-    expect(questionComments).toHaveLength(3)
+    expect(result.value?.questionComments).toHaveLength(3)
   })
 
   test('Should be able to Fetch Pagination question comments', async () => {
@@ -40,12 +40,12 @@ describe('Fetch Question Comments', () => {
 
     // .slice((page - 1) * 20, page * 20)
 
-    const { questionComments } = await sut.execute({
+    const result = await sut.execute({
       questionId: 'question-1',
       page: 2,
     })
 
     // ele vai pular os 20 primeiros items e mostrar so os 2 dos 22 items
-    expect(questionComments).toHaveLength(2)
+    expect(result.value?.questionComments).toHaveLength(2)
   })
 })

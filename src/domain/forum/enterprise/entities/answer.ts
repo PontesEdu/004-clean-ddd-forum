@@ -4,7 +4,6 @@ import { Optional } from '@/core/types/optional'
 
 export interface AnswerProps {
   content: string
-  answerId: UniqueEntityId
   questionId: UniqueEntityId
   authorId: UniqueEntityId
   createAt: Date
