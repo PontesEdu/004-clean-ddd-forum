@@ -22,6 +22,7 @@ describe('Edit question', () => {
       authorId: question.authorId.toString(),
       title: 'nova question',
       content: 'quetion nova edit',
+      attachemntsIds: []
     })
 
     expect(question.title).toEqual('nova question')

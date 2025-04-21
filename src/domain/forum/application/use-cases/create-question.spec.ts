@@ -16,15 +16,20 @@ describe('Create Question', () => {
       authorId: 'Eduardo',
       title: 'Nova Pergunta',
       content: 'conteudo da pergunta',
-      attachmentsId: ['1', '2'],
+      attachmentsIds: ['1', '2'],
     })
 
-    console.log(result.value?.question.attachments[0].attachmentId)
-
     expect(result.isLeft()).toBe(false)
+
     expect(inMamoryQuestionRepository.items[0]).toEqual(result.value?.question)
-    expect(inMamoryQuestionRepository.items[0].attachments).toHaveLength(2)
-    expect(inMamoryQuestionRepository.items[0].attachments).toEqual([
+
+    expect(
+      inMamoryQuestionRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2)
+
+    expect(
+      inMamoryQuestionRepository.items[0].attachments.currentItems,
+    ).toEqual([
       expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
       expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
     ])
