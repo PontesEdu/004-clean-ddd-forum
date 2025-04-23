@@ -1,39 +1,39 @@
-import { PaginationParams } from '@/core/repositories/pagination-params'
-import { AnswerCommentRepository } from '@/domain/forum/application/repositories/answer-comment-repository'
-import { AnswerComment } from '@/domain/forum/enterprise/entities/answer-comment'
+import { PaginationParams } from "@/core/repositories/pagination-params";
+import { AnswerCommentRepository } from "@/domain/forum/application/repositories/answer-comment-repository";
+import { AnswerComment } from "@/domain/forum/enterprise/entities/answer-comment";
 
 export class InMamoryAnswersCommentRepository
   implements AnswerCommentRepository
 {
-  public items: AnswerComment[] = []
+  public items: AnswerComment[] = [];
 
   async findById(id: string) {
-    const answerComment = this.items.find((item) => item.id.toString() === id)
+    const answerComment = this.items.find((item) => item.id.toString() === id);
 
     if (!answerComment) {
-      return null
+      return null;
     }
 
-    return answerComment
+    return answerComment;
   }
 
   async findManyByAnswerId(answerId: string, { page }: PaginationParams) {
     const answerComments = this.items
       .filter((item) => item.answerId.toString() === answerId)
-      .slice((page - 1) * 20, page * 20)
+      .slice((page - 1) * 20, page * 20);
 
-    return answerComments
+    return answerComments;
   }
 
   async create(answerComment: AnswerComment) {
-    this.items.push(answerComment)
+    this.items.push(answerComment);
   }
 
   async delete(answerComment: AnswerComment) {
     const ItemIndex = this.items.findIndex(
       (item) => item.id === answerComment.id,
-    )
+    );
 
-    this.items.splice(ItemIndex, 1) // 1 params = ele procura a posição no array, 2 params = quantos quer deletar
+    this.items.splice(ItemIndex, 1); // 1 params = ele procura a posição no array, 2 params = quantos quer deletar
   }
 }
