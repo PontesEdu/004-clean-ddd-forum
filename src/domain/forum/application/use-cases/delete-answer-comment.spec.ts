@@ -2,7 +2,7 @@ import { InMamoryAnswersCommentRepository } from 'test/repositories/in-mamory-an
 import { DeleteAnswerCommentUseCase } from './delete-answer-comment'
 import { makeAnswerComment } from 'test/factories/make-answer-comment'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { NotAllowedError } from './errors/resourse-not-allowed-error'
+import { NotAllowedError } from '../../../../core/errors/errors/resourse-not-allowed-error'
 
 describe('Dlete Answer Comment', () => {
   let inMamoryAnswersCommentRepository: InMamoryAnswersCommentRepository

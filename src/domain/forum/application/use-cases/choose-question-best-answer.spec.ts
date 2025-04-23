@@ -4,7 +4,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ChooseQuestionBestAnswerUseCase } from './choose-question-best-answer'
 import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
 import { makeAnswer } from 'test/factories/make-answer'
-import { NotAllowedError } from './errors/resourse-not-allowed-error'
+import { NotAllowedError } from '../../../../core/errors/errors/resourse-not-allowed-error'
 import { InMamoryAnswersAttachmentRepository } from 'test/repositories/in-mamory-answer-attachment-repository'
 import { InMamoryQuestionsAttachmentRepository } from 'test/repositories/in-mamory-questions-attachment-repository'
 

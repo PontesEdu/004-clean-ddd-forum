@@ -2,7 +2,7 @@ import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
 import { DeleteAnswerUseCase } from './delete-answer'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { makeAnswer } from 'test/factories/make-answer'
-import { NotAllowedError } from './errors/resourse-not-allowed-error'
+import { NotAllowedError } from '../../../../core/errors/errors/resourse-not-allowed-error'
 import { makeAnswerAttachment } from 'test/factories/make-answer-attachment'
 import { InMamoryAnswersAttachmentRepository } from 'test/repositories/in-mamory-answer-attachment-repository'
 
