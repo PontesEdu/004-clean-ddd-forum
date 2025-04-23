@@ -1,13 +1,19 @@
 import { InMamoryQuestionsRepository } from 'test/repositories/in-mamory-question-repository'
 import { CreateQuestionUseCase } from './create-question'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { InMamoryQuestionsAttachmentRepository } from 'test/repositories/in-mamory-questions-attachment-repository'
 
 describe('Create Question', () => {
   let inMamoryQuestionRepository: InMamoryQuestionsRepository
+  let inMamoryQuestionAttachmentRepository: InMamoryQuestionsAttachmentRepository
   let sut: CreateQuestionUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryQuestionRepository = new InMamoryQuestionsRepository()
+    inMamoryQuestionAttachmentRepository =
+      new InMamoryQuestionsAttachmentRepository()
+    inMamoryQuestionRepository = new InMamoryQuestionsRepository(
+      inMamoryQuestionAttachmentRepository,
+    )
     sut = new CreateQuestionUseCase(inMamoryQuestionRepository)
   })
 
