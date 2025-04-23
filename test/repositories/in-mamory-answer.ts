@@ -1,24 +1,29 @@
-import { PaginationParams } from "@/core/repositories/pagination-params";
-import { AnswersRepository } from "@/domain/forum/application/repositories/answer-repository";
-import { Answer } from "@/domain/forum/enterprise/entities/answer";
+import { PaginationParams } from '@/core/repositories/pagination-params'
+import { AnswersRepository } from '@/domain/forum/application/repositories/answer-repository'
+import { Answer } from '@/domain/forum/enterprise/entities/answer'
+import { InMamoryAnswersAttachmentRepository } from './in-mamory-answer-attachment-repository'
 
 export class InMamoryAnswerRepository implements AnswersRepository {
-  public items: Answer[] = [];
+  public items: Answer[] = []
+
+  constructor(
+    private inMamoryAnswerAttachmentsRepository: InMamoryAnswersAttachmentRepository,
+  ) {}
 
   async save(answer: Answer) {
-    const itemIndex = this.items.findIndex((item) => item.id === answer.id);
+    const itemIndex = this.items.findIndex((item) => item.id === answer.id)
 
-    this.items[itemIndex] = answer;
+    this.items[itemIndex] = answer
   }
 
   async findById(id: string) {
-    const question = this.items.find((item) => item.id.toString() === id);
+    const question = this.items.find((item) => item.id.toString() === id)
 
     if (!question) {
-      return null;
+      return null
     }
 
-    return question;
+    return question
   }
 
   async findManyByQuestionId(
@@ -27,18 +32,22 @@ export class InMamoryAnswerRepository implements AnswersRepository {
   ): Promise<Answer[]> {
     const answers = this.items
       .filter((item) => item.questionId.toString() === questionId)
-      .slice((page - 1) * 20, page * 20);
+      .slice((page - 1) * 20, page * 20)
 
-    return answers;
+    return answers
   }
 
   async create(answer: Answer) {
-    this.items.push(answer);
+    this.items.push(answer)
   }
 
   async delete(answer: Answer): Promise<void> {
-    const ItemIndex = this.items.findIndex((item) => item.id === answer.id);
+    const ItemIndex = this.items.findIndex((item) => item.id === answer.id)
 
-    this.items.splice(ItemIndex, 1); // 1 params = ele procura a posição no array, 2 params = quantos quer deletar
+    this.items.splice(ItemIndex, 1) // 1 params = ele procura a posição no array, 2 params = quantos quer deletar
+
+    this.inMamoryAnswerAttachmentsRepository.deleteManyByAnswerId(
+      answer.id.toString(),
+    )
   }
 }

@@ -11,9 +11,11 @@ describe('Edit question', () => {
   let sut: EditQuestionUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryQuestionRepository = new InMamoryQuestionsRepository()
     inMamoryQuestionAttachmentRepository =
       new InMamoryQuestionsAttachmentRepository()
+    inMamoryQuestionRepository = new InMamoryQuestionsRepository(
+      inMamoryQuestionAttachmentRepository,
+    )
     sut = new EditQuestionUseCase(
       inMamoryQuestionRepository,
       inMamoryQuestionAttachmentRepository,

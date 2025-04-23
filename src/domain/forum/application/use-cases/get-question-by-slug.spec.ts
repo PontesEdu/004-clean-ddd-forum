@@ -2,13 +2,19 @@ import { InMamoryQuestionsRepository } from 'test/repositories/in-mamory-questio
 import { CreateGetQuestionBySlugUseCase } from './get-question-by-slug'
 import { makeQuestion } from 'test/factories/make-question'
 import { Slug } from '../../enterprise/entities/value-objects/slug'
+import { InMamoryQuestionsAttachmentRepository } from 'test/repositories/in-mamory-questions-attachment-repository'
 
 describe('Get Question By Slug', () => {
   let inMamoryQuestionRepository: InMamoryQuestionsRepository
+  let inMamoryQuestionAttachmentRepository: InMamoryQuestionsAttachmentRepository
   let sut: CreateGetQuestionBySlugUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryQuestionRepository = new InMamoryQuestionsRepository()
+    inMamoryQuestionAttachmentRepository =
+      new InMamoryQuestionsAttachmentRepository()
+    inMamoryQuestionRepository = new InMamoryQuestionsRepository(
+      inMamoryQuestionAttachmentRepository,
+    )
     sut = new CreateGetQuestionBySlugUseCase(inMamoryQuestionRepository)
   })
 

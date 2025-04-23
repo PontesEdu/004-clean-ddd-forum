@@ -2,14 +2,22 @@ import { makeAnswer } from 'test/factories/make-answer'
 import { InMamoryAnswersCommentRepository } from 'test/repositories/in-mamory-answer-comment-repository'
 import { CommentOnAnswerUseCase } from './comment-on-answer'
 import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
+import { InMamoryAnswersAttachmentRepository } from 'test/repositories/in-mamory-answer-attachment-repository'
 
 describe('Answer Comment', () => {
   let inMamoryAnswerRepository: InMamoryAnswerRepository
   let inMamoryAnswersCommentRepository: InMamoryAnswersCommentRepository
+  let inMamoryAnswerAttachmentRepository: InMamoryAnswersAttachmentRepository
   let sut: CommentOnAnswerUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryAnswerRepository = new InMamoryAnswerRepository()
+    inMamoryAnswerAttachmentRepository =
+      new InMamoryAnswersAttachmentRepository()
+
+    inMamoryAnswerRepository = new InMamoryAnswerRepository(
+      inMamoryAnswerAttachmentRepository,
+    )
+
     inMamoryAnswersCommentRepository = new InMamoryAnswersCommentRepository()
 
     sut = new CommentOnAnswerUseCase(

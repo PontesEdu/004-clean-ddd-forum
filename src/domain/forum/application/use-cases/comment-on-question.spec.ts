@@ -2,14 +2,21 @@ import { InMamoryQuestionsRepository } from 'test/repositories/in-mamory-questio
 import { makeQuestion } from 'test/factories/make-question'
 import { InMamoryQuestionsCommentRepository } from 'test/repositories/in-mamory-question-comment-repository'
 import { CommentOnQuestionUseCase } from './comment-on-question'
+import { InMamoryQuestionsAttachmentRepository } from 'test/repositories/in-mamory-questions-attachment-repository'
 
 describe('Question Comment', () => {
   let inMamoryQuestionRepository: InMamoryQuestionsRepository
   let inMamoryQuestionsCommentRepository: InMamoryQuestionsCommentRepository
+  let inMamoryQuestionAttachmentRepository: InMamoryQuestionsAttachmentRepository
   let sut: CommentOnQuestionUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryQuestionRepository = new InMamoryQuestionsRepository()
+    inMamoryQuestionAttachmentRepository =
+      new InMamoryQuestionsAttachmentRepository()
+    inMamoryQuestionRepository = new InMamoryQuestionsRepository(
+      inMamoryQuestionAttachmentRepository,
+    )
+
     inMamoryQuestionsCommentRepository =
       new InMamoryQuestionsCommentRepository()
 

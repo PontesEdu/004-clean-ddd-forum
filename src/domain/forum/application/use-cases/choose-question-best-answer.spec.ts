@@ -5,15 +5,28 @@ import { ChooseQuestionBestAnswerUseCase } from './choose-question-best-answer'
 import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
 import { makeAnswer } from 'test/factories/make-answer'
 import { NotAllowedError } from './errors/resourse-not-allowed-error'
+import { InMamoryAnswersAttachmentRepository } from 'test/repositories/in-mamory-answer-attachment-repository'
+import { InMamoryQuestionsAttachmentRepository } from 'test/repositories/in-mamory-questions-attachment-repository'
 
 describe('Choose Question Best Answer', () => {
   let inMamoryQuestionRepository: InMamoryQuestionsRepository
   let inMamoryAnswerRepository: InMamoryAnswerRepository
+  let inMamoryAnswerAttachmentRepository: InMamoryAnswersAttachmentRepository
+  let inMamoryQuestionAttachmentRepository: InMamoryQuestionsAttachmentRepository
   let sut: ChooseQuestionBestAnswerUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryQuestionRepository = new InMamoryQuestionsRepository()
-    inMamoryAnswerRepository = new InMamoryAnswerRepository()
+    inMamoryQuestionAttachmentRepository =
+      new InMamoryQuestionsAttachmentRepository()
+    inMamoryQuestionRepository = new InMamoryQuestionsRepository(
+      inMamoryQuestionAttachmentRepository,
+    )
+
+    inMamoryAnswerAttachmentRepository =
+      new InMamoryAnswersAttachmentRepository()
+    inMamoryAnswerRepository = new InMamoryAnswerRepository(
+      inMamoryAnswerAttachmentRepository,
+    )
 
     sut = new ChooseQuestionBestAnswerUseCase(
       inMamoryAnswerRepository,

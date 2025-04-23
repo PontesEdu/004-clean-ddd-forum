@@ -17,7 +17,7 @@ describe('Create Question', () => {
     sut = new CreateQuestionUseCase(inMamoryQuestionRepository)
   })
 
-  test('Should be able to cerate question', async () => {
+  test('Should be able to create question', async () => {
     const result = await sut.execute({
       authorId: 'Eduardo',
       title: 'Nova Pergunta',

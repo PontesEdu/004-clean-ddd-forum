@@ -2,13 +2,19 @@ import { makeAnswer } from 'test/factories/make-answer'
 import { InMamoryAnswerRepository } from 'test/repositories/in-mamory-answer'
 import { FetchRecentAnswerUseCase } from './fetch-question-answer'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { InMamoryAnswersAttachmentRepository } from 'test/repositories/in-mamory-answer-attachment-repository'
 
 describe('Fetch Recent Answers', () => {
   let inMamoryAnswerRepository: InMamoryAnswerRepository
+  let inMamoryAnswerAttachmentRepository: InMamoryAnswersAttachmentRepository
   let sut: FetchRecentAnswerUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryAnswerRepository = new InMamoryAnswerRepository()
+    inMamoryAnswerAttachmentRepository =
+      new InMamoryAnswersAttachmentRepository()
+    inMamoryAnswerRepository = new InMamoryAnswerRepository(
+      inMamoryAnswerAttachmentRepository,
+    )
     sut = new FetchRecentAnswerUseCase(inMamoryAnswerRepository)
   })
 

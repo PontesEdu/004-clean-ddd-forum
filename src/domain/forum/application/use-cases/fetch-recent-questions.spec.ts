@@ -1,13 +1,19 @@
 import { InMamoryQuestionsRepository } from 'test/repositories/in-mamory-question-repository'
 import { makeQuestion } from 'test/factories/make-question'
 import { FetchRecentQuestionsUseCase } from './fetch-recent-questions'
+import { InMamoryQuestionsAttachmentRepository } from 'test/repositories/in-mamory-questions-attachment-repository'
 
 describe('Fetch Recent Questions', () => {
   let inMamoryQuestionRepository: InMamoryQuestionsRepository
+  let inMamoryQuestionAttachmentRepository: InMamoryQuestionsAttachmentRepository
   let sut: FetchRecentQuestionsUseCase // USE CASE => sut
 
   beforeEach(() => {
-    inMamoryQuestionRepository = new InMamoryQuestionsRepository()
+    inMamoryQuestionAttachmentRepository =
+      new InMamoryQuestionsAttachmentRepository()
+    inMamoryQuestionRepository = new InMamoryQuestionsRepository(
+      inMamoryQuestionAttachmentRepository,
+    )
     sut = new FetchRecentQuestionsUseCase(inMamoryQuestionRepository)
   })
 
